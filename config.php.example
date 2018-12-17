@@ -1,0 +1,13 @@
+<?php
+$enableDebug = false;
+$maximumZoomLevel = 19;
+# tile generation will be skiped below this zoom for performance reason
+$minimumZoomLevel = 0;
+
+$webRootDir = $_SERVER["DOCUMENT_ROOT"];
+$tileCacheDir = "$webRootDir/cache";
+$scriptDir = "$webRootDir";
+$demDataFile = "/data/dem/list.vrt";
+
+// value used for "Expires" HTTP header
+$tileCacheExpiration = 3600*24*7; // seconds
