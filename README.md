@@ -1,7 +1,9 @@
 # Hillshade tile server
 
 PHP+Python scripts for building simple server with hillshade tiles.
- 
+
+![river relief][https://raw.githubusercontent.com/Karry/hillshade-tile-server/master/screenshot.png]
+
 ### Prapare DEM data
 
  - Download DEM data for requested region from SRTM site or other source, 
