@@ -7,7 +7,13 @@ $minimumZoomLevel = 0;
 $webRootDir = $_SERVER["DOCUMENT_ROOT"];
 $tileCacheDir = "$webRootDir/cache";
 $scriptDir = "$webRootDir";
-$demDataFile = "/data/dem/list.vrt";
+
+$dataRoot = "/data/dem/";
+$demDataFiles = array(
+        4 => "$dataRoot/low-zoom-4.tif",
+        7 => "$dataRoot/low-zoom-7.tif",
+        $maximumZoomLevel => "$dataRoot/files.vrt"
+    );
 
 // value used for "Expires" HTTP header
 $tileCacheExpiration = 3600*24*7; // seconds

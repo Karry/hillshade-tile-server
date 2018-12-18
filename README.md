@@ -20,6 +20,34 @@ done
 find /data/dem/ -type f -name *.hgt.tif > /data/dem/files.lst
 gdalbuildvrt -input_file_list /data/dem/files.lst /data/dem/files.vrt
 ```
+
+ - Downscale data for low zoom (<= 7)
+
+```bash
+cd /data/dem
+gdalwarp \
+    -of GTiff \
+    -dstnodata 0 \
+    -t_srs "EPSG:3857" \
+    -r "cubic" \
+    -multi \
+    -co "TILED=YES" \
+    -ts 65536 0 \
+    "files.vrt" \
+    "low-zoom-7.tif"
+
+gdalwarp \
+    -of GTiff \
+    -dstnodata 0 \
+    -t_srs "EPSG:3857" \
+    -r "cubic" \
+    -multi \
+    -co "TILED=YES" \
+    -ts 8192 0 \
+    "files.vrt" \
+    "low-zoom-4.tif"
+```
+
 ### Web server
 
  - copy this repository to web server rood dir, rename `config.php.example` 

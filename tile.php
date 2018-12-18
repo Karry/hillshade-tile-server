@@ -73,6 +73,18 @@ if (!is_dir($subdir)){
   }
 }
 
+$demDataFile = "";
+foreach ($demDataFiles as $zoom => $value) {
+    if ($z <= $zoom){
+        $demDataFile = $value;
+        break;
+    }
+}
+
+if ($demDataFile == ""){
+    dieWith("Can't determine data file");
+}
+
 execAndCheck("python3 $scriptDir/hillshade.py \"$demDataFile\" \"$tileFile\" $z $x $y");
 
 if ($debug){
