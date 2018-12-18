@@ -24,11 +24,15 @@ if ($z < 0 || $z > $maximumZoomLevel){
 }
 
 function execAndCheck($cmd){
+  $time_start = microtime(true);
   exec($cmd, $output, $code);
+  $time_end = microtime(true);
+
   global $debug;
   if ($debug){
     echo "command: \n$cmd\n";
-    echo "exited with $code\n";
+    $time = $time_end - $time_start;
+    echo "exited with $code after $time seconds\n";
     print_r($output);
   } else if ($code != 0) {
     echo "command: \n$cmd\n";
