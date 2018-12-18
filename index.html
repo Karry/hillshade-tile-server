@@ -57,9 +57,7 @@ var toner = L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {att
 var white = L.tileLayer("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAAA1BMVEX///+nxBvIAAAAH0lEQVQYGe3BAQ0AAADCIPunfg43YAAAAAAAAAAA5wIhAAAB9aK9BAAAAABJRU5ErkJggg==");
 
 // Overlay layers (TMS)
-//var lyr = L.tileLayer('./{z}/{x}/{y}.png', {tms: true, opacity: 0.7, attribution: ""});
-//var lyr = L.tileLayer('http://localhost/dem/tile.php?z={z}&x={x}&y={y}', {tms: true, opacity: 0.8, attribution: ""});
-var lyr = L.tileLayer('http://localhost/dem/tile.php?z={z}&x={x}&y={y}', {opacity: 0.8, attribution: "viewfinderpanoramas.org - SRTM, ASTER GDEM..."});
+var lyr = L.tileLayer('http://localhost/dem/tile.php?z={z}&x={x}&y={y}', {opacity: 1.0, attribution: "viewfinderpanoramas.org - SRTM, ASTER GDEM..."});
 
 // Map
 var map = L.map('map', {
@@ -92,12 +90,6 @@ L.control.layers(basemaps, overlaymaps, {collapsed: false}).addTo(map);
 
 // Assuming your map instance is in a variable called map
 var hash = new L.Hash(map);
-
-// map.zoom.addEventListener(function(){
-//   console.log("something");
-// });
-//var listener = new EventListener();
-//L.addEventListener("callback", listener);
 
 </script>
 
