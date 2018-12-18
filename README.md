@@ -2,7 +2,7 @@
 
 PHP+Python scripts for building simple server with hillshade tiles.
 
-![river relief][https://raw.githubusercontent.com/Karry/hillshade-tile-server/master/screenshot.png "river relief"]
+![river relief][screenshot.png?raw=true "river relief"]
 
 ### Prapare DEM data
 
