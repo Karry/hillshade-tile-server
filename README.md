@@ -52,9 +52,9 @@ gdalwarp \
 
 ### Web server
 
- - copy this repository to web server rood dir, rename `config.php.example` 
+ - copy this repository to web server root dir, rename `config.php.example` 
  to `config.php` and setup paths for your server
- - prepare script for cleanup tile cache
+ - prepare script for cleanup tile cache and add it to system cron
 
 ```bash
 TODO
