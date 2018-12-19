@@ -57,7 +57,7 @@ var toner = L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {att
 var white = L.tileLayer("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAAA1BMVEX///+nxBvIAAAAH0lEQVQYGe3BAQ0AAADCIPunfg43YAAAAAAAAAAA5wIhAAAB9aK9BAAAAABJRU5ErkJggg==");
 
 // Overlay layers (TMS)
-var lyr = L.tileLayer('http://localhost/dem/tile.php?z={z}&x={x}&y={y}', {opacity: 1.0, attribution: "viewfinderpanoramas.org - SRTM, ASTER GDEM..."});
+var lyr = L.tileLayer('/tile.php?z={z}&x={x}&y={y}', {opacity: 1.0, attribution: "viewfinderpanoramas.org - SRTM, ASTER GDEM..."});
 
 // Map
 var map = L.map('map', {

@@ -12,7 +12,7 @@ $dataRoot = "/data/dem/";
 $demDataFiles = array(
         4 => "$dataRoot/low-zoom-4.tif",
         7 => "$dataRoot/low-zoom-7.tif",
-        $maximumZoomLevel => "$dataRoot/files.vrt"
+        $maximumZoomLevel => "$dataRoot/full.vrt"
     );
 
 // value used for "Expires" HTTP header

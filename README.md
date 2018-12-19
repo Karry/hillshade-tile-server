@@ -20,7 +20,7 @@ done
  - Build GDAL virtual data set from multiple files
 ```bash
 find /data/dem/ -type f -name *.hgt.tif > /data/dem/files.lst
-gdalbuildvrt -input_file_list /data/dem/files.lst /data/dem/files.vrt
+gdalbuildvrt -input_file_list /data/dem/files.lst /data/dem/full.vrt
 ```
 
  - Downscale data for low zoom (<= 7)
