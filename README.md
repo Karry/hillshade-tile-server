@@ -52,8 +52,11 @@ gdalwarp \
 
 ### Web server
 
+ - it is required web server with PHP support (apache2 for example), 
+   memcached server with corresponding PHP module, python3 with gdal 
+   and Imaging (PIL) module...
  - copy this repository to web server root dir, rename `config.php.example` 
- to `config.php` and setup paths for your server
+   to `config.php` and setup paths and other properties for your server
  - prepare script for cleanup tile cache and add it to system cron
 
 ```bash
