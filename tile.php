@@ -32,6 +32,7 @@ include "config.php";
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 function dieWith($message){
+    header("500 Internal Server Error");
     header("Content-Type: text/plain; charset=UTF-8;");
     echo $message."\n";
     die();
@@ -102,8 +103,7 @@ if ($debug){
 $subdir = dirname($tileFile);
 if (!is_dir($subdir)){
   if (!mkdir($subdir, /*mode*/ 0777, /*recursive*/ true) && (!is_dir($subdir))){
-    header("500 Internal Server Error");
-    die("Cache directory creation fails.");
+    dieWith("Cache directory creation fails.");
   }
 }
 
@@ -118,6 +118,34 @@ foreach ($demDataFiles as $zoom => $value) {
 if ($demDataFile == ""){
     dieWith("Can't determine data file");
 }
+
+$memcache=new Memcache();
+if (!$memcache->connect('127.0.0.1', 11211)){
+  dieWith("Can't connect to memcached.");
+}
+
+// https://www.leaseweb.com/labs/2015/06/limit-concurrent-php-requests-using-memcache/
+function limit_concurrency($concurrency,$spinLock,$interval,$key){
+  global $debug;
+  global $memcache;
+  $start = microtime(true);
+
+  $memcache->add($key,0,false,/*ttl*/3600);
+  while ($memcache->increment($key) > $concurrency) {
+    $memcache->decrement($key);
+    if (!$spinLock || microtime(true)-$start>$interval) {
+      //http_response_code(429);
+      header("429 Too Many Requests");
+      die('429: Too Many Requests');
+    }
+    usleep($spinLock*1000000);
+  }
+  register_shutdown_function(function() use ($memcache,$key){ $memcache->decrement($key); });
+  if ($debug){
+    echo "memcache $key: " . $memcache->get($key) . "\n";
+  }
+}
+limit_concurrency($maxConcurency, 0.15, $spinLockInterval, 'hillshade_concurrency');
 
 execAndCheck("python3 $scriptDir/hillshade.py \"$demDataFile\" \"$tileFile\" $z $x $y");
 

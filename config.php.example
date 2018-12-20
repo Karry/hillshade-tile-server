@@ -17,3 +17,8 @@ $demDataFiles = array(
 
 // value used for "Expires" HTTP header
 $tileCacheExpiration = 3600*24*7; // seconds
+
+// limit concurency of memory expensive python generator
+$maxConcurency = 16;
+$spinLockInterval = 5; // seconds
+
