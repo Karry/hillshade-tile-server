@@ -76,6 +76,7 @@ function execAndCheck($cmd){
 function sendTile($tileFile){
   header("Content-Type: image/png");
   header("Expires: ".GMDate("D, d M Y H:i:s", time() + $tileCacheExpiration)." GMT");
+  header("Cache-Control: max-age=" . $tileCacheExpiration);
   readfile($tileFile);
 }
 
