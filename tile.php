@@ -32,7 +32,7 @@ include "config.php";
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 function dieWith($message){
-    header("500 Internal Server Error");
+    header($_SERVER['SERVER_PROTOCOL']." 500 Internal Server Error");
     header("Content-Type: text/plain; charset=UTF-8;");
     echo $message."\n";
     die();
@@ -132,12 +132,12 @@ function limit_concurrency($concurrency,$spinLock,$interval,$key){
   global $memcache;
   $start = microtime(true);
 
-  $memcache->add($key,0,false,/*ttl*/3600);
+  $memcache->add($key,0,false);
   while ($memcache->increment($key) > $concurrency) {
     $memcache->decrement($key);
     if (!$spinLock || microtime(true)-$start>$interval) {
       //http_response_code(429);
-      header("429 Too Many Requests");
+      header($_SERVER['SERVER_PROTOCOL']." 429 Too Many Requests");
       die('429: Too Many Requests');
     }
     usleep($spinLock*1000000);
