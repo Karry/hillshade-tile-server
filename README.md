@@ -8,7 +8,7 @@ You can [try result here](https://osmscout.karry.cz/hillshade/).
 ### Prapare DEM data
 
  - Download DEM data for requested region from SRTM site or other source, 
- for example [viewfinderpanoramas.org](viewfinderpanoramas.org)
+ for example [viewfinderpanoramas.org](http://viewfinderpanoramas.org)
  - Convert DEM data to GeoTif format with GDAL tool
 
 ```bash
