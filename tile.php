@@ -38,6 +38,13 @@ function dieWith($message){
     die();
 }
 
+function dieWithFalse($res) {
+    if ($res === false){
+        dieWith("Memcached operation failed.");
+    }
+    return $res;
+}
+
 if (!array_key_exists("x", $_GET) || 
     !array_key_exists("y", $_GET) ||
     !array_key_exists("z", $_GET)) {
@@ -133,8 +140,8 @@ function limit_concurrency($concurrency,$spinLock,$interval,$key){
   $start = microtime(true);
 
   $memcache->add($key,0,false);
-  while ($memcache->increment($key) > $concurrency) {
-    $memcache->decrement($key);
+  while (dieWithFalse($memcache->increment($key)) > $concurrency) {
+    dieWithFalse($memcache->decrement($key));
     if (!$spinLock || microtime(true)-$start>$interval) {
       //http_response_code(429);
       header($_SERVER['SERVER_PROTOCOL']." 429 Too Many Requests");
