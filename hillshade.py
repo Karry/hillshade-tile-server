@@ -113,12 +113,14 @@ ds = gdal.Open(infile, gdal.GA_ReadOnly)
 # cut and transform to Merkaartor projection
 
 ds = gdal.Warp(tmpFile1, ds,
-               dstSRS = "EPSG:3857",
-               resampleAlg = "cubic",
-               outputBounds = [lonMin, latMin, lonMax, latMax],
-               outputBoundsSRS = "EPSG:4326",
-               width = renderWidth, height = renderHeight,
-               options = ["TILED=YES"]
+               options = gdal.WarpOptions(
+                   dstSRS='EPSG:4326',
+                   resampleAlg = "cubic",
+                   outputBounds = [lonMin, latMin, lonMax, latMax],
+                   outputBoundsSRS = "EPSG:4326",
+                   width = renderWidth, height = renderHeight,
+                   # TILED = True
+               ),
                )
 
 print(gdal.Info(ds))

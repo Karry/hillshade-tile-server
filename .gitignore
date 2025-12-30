@@ -1,3 +1,5 @@
 /.idea
 /cache
 /config.php
+*.tif
+/venv/
