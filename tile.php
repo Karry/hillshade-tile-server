@@ -48,8 +48,7 @@ function loadOrDie($extension){
   if (!extension_loaded($extension)){
     if (!(function_exists("dl") && dl($extension))){
       header("Content-Type: text/plain; charset=UTF-8;");
-      echo "Can't load php extension ".$extension."\n";
-      die();
+      dieWith("Can't load php extension ".$extension);
     }
   }
 }
