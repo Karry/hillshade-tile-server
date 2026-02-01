@@ -133,7 +133,9 @@ if z < 11:
 ds = gdal.DEMProcessing(tmpFile2, ds, "hillshade",
                         alg = alg,
                         zFactor = 2,
-                        #scale = 10,
+                        # Ratio of vertical units to horizontal units. If the horizontal unit of the source DEM is degrees
+                        # (e.g Lat/Long WGS84 projection), you can use scale=111120 if the vertical units are meters
+                        scale = 111120,
                         azimuth = 315,
                         combined = False,
                         #multiDirectional = True,
