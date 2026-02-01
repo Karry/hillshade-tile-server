@@ -109,6 +109,7 @@ print("GDAL Warp %s -> %s ([lon lat] %f %f %f %f)" % (infile, tmpFile1, lonMin, 
 print("Render hillshades to %d x %d, crop %d x %d, %d x %d" % (renderWidth, renderHeight, cropX1, cropY1, cropX2, cropY2))
 print()
 
+gdal.UseExceptions()
 ds = gdal.Open(infile, gdal.GA_ReadOnly)
 # cut and transform to Merkaartor projection
 
