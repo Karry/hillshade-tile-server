@@ -5,7 +5,7 @@ You can [try result here](https://osmscout.karry.cz/hillshade/).
 
 ![river relief](screenshot.png)
 
-### Prapare DEM data
+### Prepare DEM data
 
  - Download DEM data for requested region from SRTM site or other source, 
  for example [viewfinderpanoramas.org](http://viewfinderpanoramas.org)
