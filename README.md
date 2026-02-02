@@ -28,26 +28,52 @@ gdalbuildvrt -input_file_list /data/dem/files.lst /data/dem/full.vrt
 
 ```bash
 cd /data/dem
-gdalwarp \
-    -of GTiff \
-    -dstnodata 0 \
-    -t_srs "EPSG:3857" \
-    -r "cubic" \
-    -multi \
-    -co "TILED=YES" \
-    -ts 65536 0 \
-    "files.vrt" \
-    "low-zoom-7.tif"
+
+# Important notes for low-zoom rasters:
+# - Use EPSG:3857 (meters) for a stable grid.
+# - Use a fixed -tr and -tap so the pixels are aligned to the target grid.
+# - If your DEM coverage isn't global (common), DON'T force global WebMercator
+#   bounds with -te. It will fill huge areas with nodata and can make edge
+#   behavior look like a “shift”. Prefer warping just the dataset extent.
+# - For better edge behavior, consider -dstalpha or a proper nodata value.
+
+# Pixel size at zoom z for WebMercator is:
+#   40075016.6856 / (256 * 2^z)
+
+# low-zoom-7: pixel size ~ 1222.992 m
+PIX7=1222.992452
 
 gdalwarp \
     -of GTiff \
     -dstnodata 0 \
     -t_srs "EPSG:3857" \
+    -tr ${PIX7} ${PIX7} \
+    -tap \
     -r "cubic" \
     -multi \
+    -wo "NUM_THREADS=ALL_CPUS" \
     -co "TILED=YES" \
-    -ts 8192 0 \
-    "files.vrt" \
+    -co "COMPRESS=DEFLATE" \
+    -co "PREDICTOR=2" \
+    "full.vrt" \
+    "low-zoom-7.tif"
+
+# low-zoom-4: pixel size ~ 9783.94 m
+PIX4=9783.939615
+
+gdalwarp \
+    -of GTiff \
+    -dstnodata 0 \
+    -t_srs "EPSG:3857" \
+    -tr ${PIX4} ${PIX4} \
+    -tap \
+    -r "cubic" \
+    -multi \
+    -wo "NUM_THREADS=ALL_CPUS" \
+    -co "TILED=YES" \
+    -co "COMPRESS=DEFLATE" \
+    -co "PREDICTOR=2" \
+    "full.vrt" \
     "low-zoom-4.tif"
 ```
 
@@ -68,4 +94,3 @@ TODO
 
  - **Leaflet** - BSD-2-Clause (https://leafletjs.com/)
  - **Leaflet HASH plugin** - MIT (https://github.com/mlevans/leaflet-hash)
-
